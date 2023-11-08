@@ -1,4 +1,4 @@
-<h1>Template React</h1>
+<h1>Sistemas Distribuídos - Front-end</h1>
 
 <div id="estrutura">
 
