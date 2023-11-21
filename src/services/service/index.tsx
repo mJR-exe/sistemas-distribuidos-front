@@ -1,90 +1,11 @@
 import axios from "axios";
 
 import { routes } from "../routes";
-import { TypeLogin } from "../types";
 
 class Service {
-  async login(data: TypeLogin) {
-    return axios({
-      url: `${routes.API_URL}/login`,
-      method: "POST",
-      data,
-      timeout: 5000,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
-  async getUsers() {
-    return axios({
-      url: `${routes.API_URL}/usuarios`,
-      method: "GET",
-      timeout: 5000,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
-  async postUser(data: { email: string; nome: string; password: string }) {
-    return axios({
-      url: `${routes.API_URL}/usuario`,
-      method: "POST",
-      timeout: 5000,
-      data,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
-  async updateUsers(data: { email: string; nome: string; password: string }, id: number) {
-    return axios({
-      url: `${routes.API_URL}/usuario/${id}`,
-      method: "PUT",
-      data,
-      timeout: 5000,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
-  async deleteUser(id: number) {
-    return axios({
-      url: `${routes.API_URL}/usuario/${id}`,
-      method: "DELETE",
-      timeout: 5000,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
   async getPacientes() {
     return axios({
-      url: `${routes.API_URL}/pacientes`,
+      url: `${routes.API_URL}/paciente`,
       method: "GET",
       timeout: 5000,
       headers: routes.HEADER_REQUEST,
@@ -99,11 +20,11 @@ class Service {
 
   async postPaciente(data: {
     nome: string;
-    cpf: string;
-    telefone: string;
-    dataNasc: string;
-    convenio: string;
-    endereco: string;
+    dataNascimento: string;
+    sexo: string;
+    fuma: boolean;
+    bebe: boolean;
+    alimentacao: string;
   }) {
     return axios({
       url: `${routes.API_URL}/paciente`,
@@ -123,11 +44,11 @@ class Service {
   async updatePaciente(
     data: {
       nome: string;
-      cpf: string;
-      telefone: string;
-      dataNasc: string;
-      convenio: string;
-      endereco: string;
+      dataNascimento: string;
+      sexo: string;
+      fuma: boolean;
+      bebe: boolean;
+      alimentacao: string;
     },
     id: number
   ) {

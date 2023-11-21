@@ -23,11 +23,11 @@ type TypeProps = {
 export type TypeData = {
   id: number;
   nome: string;
-  cpf: string;
-  telefone: string;
-  dataNasc: string;
-  convenio: string;
-  endereco: string;
+  dataNascimento: string;
+  sexo: string;
+  fuma: boolean;
+  bebe: boolean;
+  alimentacao: string;
 };
 
 export default function TablePacientes(props: TypeProps) {
@@ -38,11 +38,11 @@ export default function TablePacientes(props: TypeProps) {
   const [itensModal, setItensModal] = useState<TypeData>({
     id: 0,
     nome: "",
-    cpf: "",
-    telefone: "",
-    dataNasc: "",
-    convenio: "",
-    endereco: "",
+    dataNascimento: "",
+    sexo: "",
+    fuma: false,
+    bebe: false,
+    alimentacao: "",
   });
 
   const [openAlert, setOpenAlert] = useState(false);
@@ -92,11 +92,11 @@ export default function TablePacientes(props: TypeProps) {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>Nome</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Telefone</TableCell>
+                <TableCell>Sexo</TableCell>
+                <TableCell>Alimentação</TableCell>
                 <TableCell>Data de Nascimento</TableCell>
-                <TableCell>Endereço</TableCell>
-                <TableCell>Convênio</TableCell>
+                <TableCell>Bebe</TableCell>
+                <TableCell>Fuma</TableCell>
                 <TableCell align="right">Ações</TableCell>
               </TableRow>
             </TableHead>
@@ -105,14 +105,14 @@ export default function TablePacientes(props: TypeProps) {
                 <TableRow key={item.nome}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.nome}</TableCell>
-                  <TableCell>{item.cpf}</TableCell>
-                  <TableCell>{item.telefone}</TableCell>
+                  <TableCell>{item.sexo}</TableCell>
+                  <TableCell>{item.alimentacao}</TableCell>
                   <TableCell>
-                    {item.dataNasc.split("T")[0].split("-")[2]}/{item.dataNasc.split("T")[0].split("-")[1]}/
-                    {item.dataNasc.split("T")[0].split("-")[0]}
+                    {item.dataNascimento.split("T")[0].split("-")[2]}/{item.dataNascimento.split("T")[0].split("-")[1]}/
+                    {item.dataNascimento.split("T")[0].split("-")[0]}
                   </TableCell>
-                  <TableCell>{item.endereco}</TableCell>
-                  <TableCell>{item.convenio}</TableCell>
+                  <TableCell>{item.bebe}</TableCell>
+                  <TableCell>{item.fuma}</TableCell>
                   <TableCell align="right">
                     <Button
                       onClick={() => handleEditOpen(item)}
@@ -127,7 +127,7 @@ export default function TablePacientes(props: TypeProps) {
                       variant="contained"
                       size="small"
                       color="error"
-                      onClick={() => handleMessage("Deseja excluir o usuário?", "warning", "Atenção")}
+                      onClick={() => handleMessage("Deseja excluir o paciente?", "warning", "Atenção")}
                     >
                       Deletar
                     </Button>

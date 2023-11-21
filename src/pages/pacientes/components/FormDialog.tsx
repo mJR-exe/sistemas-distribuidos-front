@@ -13,8 +13,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { SetStateAction, useEffect, useState } from "react";
-import InputMask from "react-input-mask";
+import { useEffect, useState } from "react";
 
 import service from "../../../services/service";
 
@@ -25,21 +24,21 @@ type TypeProps = {
   item: {
     id?: number;
     nome?: string;
-    cpf?: string;
-    telefone?: string;
-    dataNasc?: string;
-    convenio?: string;
-    endereco?: string;
+    dataNascimento?: string;
+    sexo?: string;
+    fuma?: boolean;
+    bebe?: boolean;
+    alimentacao?: string;
   };
 };
 
 export default function FormDialog(props: TypeProps) {
   const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [dataNasc, setDataNasc] = useState("");
-  const [convenio, setConvenio] = useState("");
-  const [endereco, setEndereco] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [sexo, setSexo] = useState("");
+  const [fuma, setFuma] = useState(false);
+  const [bebe, setBebe] = useState(false);
+  const [alimentacao, setAlimentacao] = useState("");
 
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [message, setMessage] = useState("");
@@ -47,11 +46,11 @@ export default function FormDialog(props: TypeProps) {
   function updatePaciente() {
     const data = {
       nome,
-      cpf,
-      telefone,
-      dataNasc,
-      convenio,
-      endereco,
+      sexo,
+      fuma,
+      dataNascimento,
+      bebe,
+      alimentacao,
     };
 
     service
@@ -68,11 +67,11 @@ export default function FormDialog(props: TypeProps) {
   function postPaciente() {
     const data = {
       nome,
-      cpf,
-      telefone,
-      dataNasc,
-      convenio,
-      endereco,
+      sexo,
+      fuma,
+      dataNascimento,
+      bebe,
+      alimentacao,
     };
 
     service
@@ -94,11 +93,13 @@ export default function FormDialog(props: TypeProps) {
 
   useEffect(() => {
     setNome(props.item.nome ? props.item.nome : "");
-    setCpf(props.item.cpf ? props.item.cpf : "");
-    setTelefone(props.item.telefone ? props.item.telefone : "");
-    setDataNasc(props.item.dataNasc ? props.item.dataNasc.substring(0, props.item.dataNasc.length - 14) : "");
-    setConvenio(props.item.convenio ? props.item.convenio : "");
-    setEndereco(props.item.endereco ? props.item.endereco : "");
+    setSexo(props.item.sexo ? props.item.sexo : "");
+    setFuma(props.item.fuma ? props.item.fuma : false);
+    setBebe(props.item.bebe ? props.item.bebe : false);
+    setDataNascimento(
+      props.item.dataNascimento ? props.item.dataNascimento.substring(0, props.item.dataNascimento.length - 14) : ""
+    );
+    setAlimentacao(props.item.alimentacao ? props.item.alimentacao : "");
   }, [props.item]);
 
   return (
@@ -126,35 +127,38 @@ export default function FormDialog(props: TypeProps) {
               />
             </Grid>
             <Grid item lg={4}>
-              <InputMask
-                mask="999.999.999-99"
-                value={cpf}
-                onChange={(n: { target: { value: SetStateAction<string> } }) => setCpf(n.target.value)}
-              >
-                {/* @ts-ignore */}
-                {() => <TextField label="CPF" fullWidth required />}
-              </InputMask>
-            </Grid>
-            <Grid item lg={4}>
-              <InputMask mask="(99) 99999-9999" value={telefone} onChange={(n) => setTelefone(n.target.value)}>
-                {/* @ts-ignore comment */}
-                {() => <TextField label="Telefone" fullWidth required />}
-              </InputMask>
-            </Grid>
-            <Grid item lg={4}>
               <TextField
                 label="Data de Nascimento"
                 InputLabelProps={{ shrink: true }}
                 type="date"
                 fullWidth
-                value={dataNasc}
-                onChange={(n) => setDataNasc(n.target.value)}
+                value={dataNascimento}
+                onChange={(n) => setDataNascimento(n.target.value)}
               />
             </Grid>
             <Grid item lg={4}>
               <FormControl fullWidth>
-                <InputLabel>Convênio</InputLabel>
-                <Select autoFocus value={convenio || ""} label="Convênio" onChange={(e) => setConvenio(e.target.value)}>
+                <InputLabel>O paciente fuma?</InputLabel>
+                <Select
+                  autoFocus
+                  value={fuma || ""}
+                  label="O paciente fuma?"
+                  onChange={(n) => setFuma(Boolean(n.target.value === "Sim"))}
+                >
+                  <MenuItem value="Sim">Sim</MenuItem>
+                  <MenuItem value="Não">Não</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item lg={4}>
+              <FormControl fullWidth>
+                <InputLabel>O paciente bebe?</InputLabel>
+                <Select
+                  autoFocus
+                  value={bebe || ""}
+                  label="O paciente bebe?"
+                  onChange={(n) => setBebe(Boolean(n.target.value === "Sim"))}
+                >
                   <MenuItem value="Sim">Sim</MenuItem>
                   <MenuItem value="Não">Não</MenuItem>
                 </Select>
@@ -165,8 +169,8 @@ export default function FormDialog(props: TypeProps) {
                 label="Endereço"
                 type="text"
                 fullWidth
-                value={endereco}
-                onChange={(n) => setEndereco(n.target.value)}
+                value={alimentacao}
+                onChange={(n) => setAlimentacao(n.target.value)}
               />
             </Grid>
             <Grid item lg={12} sx={styles.modalFooter}>

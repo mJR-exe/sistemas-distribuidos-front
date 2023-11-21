@@ -31,7 +31,7 @@ function UsuariosContent() {
     getSearch();
   }
 
-  function getUsers() {
+  /* function getUsers() {
     service
       .getUsers()
       .then((response) => {
@@ -42,10 +42,10 @@ function UsuariosContent() {
       .catch((error) => {
         console.log(error);
       });
-  }
+  } */
 
   useEffect(() => {
-    getUsers();
+    // getUsers();
     getSearch();
   }, []);
 
