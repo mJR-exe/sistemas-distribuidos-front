@@ -28,7 +28,10 @@ type TypeProps = {
     sexo?: string;
     fuma?: boolean;
     bebe?: boolean;
-    alimentacao?: string;
+    praticaExercicio?: boolean;
+    infartou?: boolean;
+    alimentacao?: boolean;
+    descricaoSintomas?: string;
   };
 };
 
@@ -38,7 +41,10 @@ export default function FormDialog(props: TypeProps) {
   const [sexo, setSexo] = useState("");
   const [fuma, setFuma] = useState(false);
   const [bebe, setBebe] = useState(false);
-  const [alimentacao, setAlimentacao] = useState("");
+  const [infartou, setInfartou] = useState(false);
+  const [praticaExercicio, setPraticaExercicio] = useState(false);
+  const [alimentacao, setAlimentacao] = useState(false);
+  const [descricaoSintomas, setDescricaoSintomas] = useState("");
 
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [message, setMessage] = useState("");
@@ -50,7 +56,10 @@ export default function FormDialog(props: TypeProps) {
       fuma,
       dataNascimento,
       bebe,
+      praticaExercicio,
+      infartou,
       alimentacao,
+      descricaoSintomas,
     };
 
     service
@@ -99,7 +108,10 @@ export default function FormDialog(props: TypeProps) {
     setDataNascimento(
       props.item.dataNascimento ? props.item.dataNascimento.substring(0, props.item.dataNascimento.length - 14) : ""
     );
-    setAlimentacao(props.item.alimentacao ? props.item.alimentacao : "");
+    setAlimentacao(props.item.alimentacao ? props.item.alimentacao : false);
+    setInfartou(props.item.infartou ? props.item.infartou : false);
+    setPraticaExercicio(props.item.praticaExercicio ? props.item.praticaExercicio : false);
+    setDescricaoSintomas(props.item.descricaoSintomas ? props.item.descricaoSintomas : "");
   }, [props.item]);
 
   return (
@@ -143,7 +155,7 @@ export default function FormDialog(props: TypeProps) {
                   autoFocus
                   value={fuma || ""}
                   label="O paciente fuma?"
-                  onChange={(n) => setFuma(Boolean(n.target.value === "Sim"))}
+                  onChange={(n) => setFuma(n.target.value === "Sim")}
                 >
                   <MenuItem value="Sim">Sim</MenuItem>
                   <MenuItem value="Não">Não</MenuItem>
@@ -165,12 +177,54 @@ export default function FormDialog(props: TypeProps) {
               </FormControl>
             </Grid>
             <Grid item lg={4}>
+              <FormControl fullWidth>
+                <InputLabel>O paciente pratica exercício?</InputLabel>
+                <Select
+                  autoFocus
+                  value={praticaExercicio || ""}
+                  label="O paciente pratica exercício?"
+                  onChange={(n) => setPraticaExercicio(Boolean(n.target.value === "Sim"))}
+                >
+                  <MenuItem value="Sim">Sim</MenuItem>
+                  <MenuItem value="Não">Não</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item lg={4}>
+              <FormControl fullWidth>
+                <InputLabel>O paciente já infartou?</InputLabel>
+                <Select
+                  autoFocus
+                  value={infartou || ""}
+                  label="O paciente já infartou?"
+                  onChange={(n) => setInfartou(Boolean(n.target.value === "Sim"))}
+                >
+                  <MenuItem value="Sim">Sim</MenuItem>
+                  <MenuItem value="Não">Não</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item lg={4}>
+              <FormControl fullWidth>
+                <InputLabel>Tem boa alimentação?</InputLabel>
+                <Select
+                  autoFocus
+                  value={alimentacao || ""}
+                  label="Tem boa alimentação?"
+                  onChange={(n) => setAlimentacao(Boolean(n.target.value === "Sim"))}
+                >
+                  <MenuItem value="Sim">Sim</MenuItem>
+                  <MenuItem value="Não">Não</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item lg={8}>
               <TextField
-                label="Endereço"
+                label="Descrição dos sintomas"
                 type="text"
                 fullWidth
-                value={alimentacao}
-                onChange={(n) => setAlimentacao(n.target.value)}
+                value={descricaoSintomas}
+                onChange={(n) => setDescricaoSintomas(n.target.value)}
               />
             </Grid>
             <Grid item lg={12} sx={styles.modalFooter}>

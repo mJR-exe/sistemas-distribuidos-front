@@ -1,4 +1,4 @@
-import { AlarmAdd, Article, LocalHospital, People, SupervisedUserCircle } from "@mui/icons-material";
+import { AlarmAdd, LocalHospital, People, SupervisedUserCircle } from "@mui/icons-material";
 
 const routes = [
   {
@@ -20,11 +20,6 @@ const routes = [
     href: "/atendimentos",
     icon: <AlarmAdd />,
     name: "Atendimentos",
-  },
-  {
-    href: "/relatorio",
-    icon: <Article />,
-    name: "Relatório",
   },
 ];
 

@@ -24,7 +24,10 @@ class Service {
     sexo: string;
     fuma: boolean;
     bebe: boolean;
-    alimentacao: string;
+    infartou?: boolean;
+    praticaExercicio?: boolean;
+    alimentacao: boolean;
+    descricaoSintomas?: string;
   }) {
     return axios({
       url: `${routes.API_URL}/paciente`,
@@ -48,7 +51,10 @@ class Service {
       sexo: string;
       fuma: boolean;
       bebe: boolean;
-      alimentacao: string;
+      infartou: boolean;
+      praticaExercicio: boolean;
+      alimentacao: boolean;
+      descricaoSintomas: string;
     },
     id: number
   ) {
@@ -209,21 +215,6 @@ class Service {
     return axios({
       url: `${routes.API_URL}/atendimento/${id}`,
       method: "DELETE",
-      timeout: 5000,
-      headers: routes.HEADER_REQUEST,
-    })
-      .then((response) => {
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  }
-
-  async getRelatorio() {
-    return axios({
-      url: `${routes.API_URL}/relatorio`,
-      method: "GET",
       timeout: 5000,
       headers: routes.HEADER_REQUEST,
     })
